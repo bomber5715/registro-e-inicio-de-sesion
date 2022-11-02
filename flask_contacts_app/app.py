@@ -49,6 +49,7 @@ def update_contact(id):
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        password_encriptadaqueseactualiza = generate_password_hash(password)
         fullname = request.form['fullname']
         phone = request.form['phone']
         cur = mysql.connection.cursor()
@@ -59,7 +60,7 @@ def update_contact(id):
                 fullname = %s,
                 phone = %s
           WHERE id = %s
-        """, (username, password, fullname, phone, id))
+        """, (username, password_encriptadaqueseactualiza, fullname, phone, id))
         mysql.connection.commit()
         flash('Contacto actualizado exitosamente')
         return redirect(url_for('Index'))
